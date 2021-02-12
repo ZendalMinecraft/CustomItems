@@ -29,9 +29,8 @@ configurations {
     extraLibs
     testCompile.extendsFrom compileOnly
 }
-
 dependencies {
-    compile group: 'org.reflections', name: 'reflections', version: '0.9.12'
+    extraLibs group: 'org.reflections', name: 'reflections', version: '0.9.12'
 
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
     compileOnly 'org.jetbrains:annotations:16.0.2'

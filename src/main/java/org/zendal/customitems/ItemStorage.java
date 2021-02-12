@@ -1,6 +1,8 @@
 package org.zendal.customitems;
 
 import org.bukkit.Material;
+import org.reflections.Reflections;
+import org.zendal.customitems.item.annotation.CustomItem;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +29,8 @@ public class ItemStorage {
 
 
     public void init(){
-        Reflections reflections = new Reflections("my.package");
+        Reflections reflections = new Reflections("org.zendal");
+        var classes = reflections.getTypesAnnotatedWith(CustomItem.class);
+        System.out.println(classes);
     }
 }

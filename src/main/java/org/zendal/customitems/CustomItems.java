@@ -18,6 +18,7 @@ public final class CustomItems extends JavaPlugin {
                 return new ServiceItemStack(itemStack);
             }
         });
+        storage.init();
         this.getServer().getPluginManager().registerEvents(new TestListener(storage), this);
 
     }
