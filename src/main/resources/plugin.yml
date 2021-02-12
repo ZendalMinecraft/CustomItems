@@ -1,0 +1,8 @@
+name: Customitems
+version: @version@
+main: org.zendal.customitems.CustomItems
+api-version: 1.16
+authors: [ BigTows ]
+description: Helpful plugin for developers to create custom items
+depend:
+  - NBTAPI
