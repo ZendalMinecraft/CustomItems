@@ -8,7 +8,9 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.zendal.customitems.ItemStorage;
 import org.zendal.customitems.event.EntityPickupCustomItemEvent;
+import org.zendal.customitems.item.AbstractCustomItemStack;
 import org.zendal.customitems.item.CustomItemProxy;
+import org.zendal.customitems.item.ServiceItemStack;
 
 public class TestListener implements Listener {
 
@@ -20,7 +22,6 @@ public class TestListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPick(EntityPickupItemEvent e) {
-
         ItemStack itemStack = e.getItem().getItemStack();
 
         if (!itemStack.hasItemMeta() || !itemStack.getItemMeta().hasCustomModelData()) {
@@ -28,15 +29,22 @@ public class TestListener implements Listener {
         }
 
         var customItemStackFactory = itemStorage.getCustomItemStackFactory(itemStack.getType(), itemStack.getItemMeta().getCustomModelData());
-        var customItemStack = customItemStackFactory.build(itemStack);
+        AbstractCustomItemStack customItemStack = null;
+        try {
+            customItemStack = customItemStackFactory.build(itemStack);
+            var event = new EntityPickupCustomItemEvent(e, new CustomItemProxy(e.getItem(), customItemStack));
+            Bukkit.getPluginManager().callEvent(event);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
-        var event = new EntityPickupCustomItemEvent(e, e.getEntity(), new CustomItemProxy(e.getItem(), customItemStack), e.getRemaining());
-        Bukkit.getPluginManager().callEvent(event);
     }
 
     @EventHandler
     public void onCustomPick(EntityPickupCustomItemEvent event) {
-        System.out.println("YEEE" + event.getItem().getItemStack());
-        //event.setCancelled(true);
+        if (event.getItem().getItemStack() instanceof ServiceItemStack) {
+            System.out.println("YEEE" + event.getItem().getItemStack());
+        }
+        //    event.setCancelled(true);
     }
 }

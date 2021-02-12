@@ -1,7 +1,10 @@
 package org.zendal.customitems;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.zendal.customitems.item.AbstractCustomItemStack;
+import org.zendal.customitems.item.ServiceItemStack;
 import org.zendal.customitems.listener.TestListener;
 
 public final class CustomItems extends JavaPlugin {
@@ -9,7 +12,12 @@ public final class CustomItems extends JavaPlugin {
     @Override
     public void onEnable() {
         var storage = new ItemStorage();
-        storage.registerCustomItemStack(Material.BARRIER, 12);
+        storage.registerCustomItemStack(Material.BARRIER, 12, new CustomItemStackFactory() {
+            @Override
+            public AbstractCustomItemStack build(ItemStack itemStack) {
+                return new ServiceItemStack(itemStack);
+            }
+        });
         this.getServer().getPluginManager().registerEvents(new TestListener(storage), this);
 
     }

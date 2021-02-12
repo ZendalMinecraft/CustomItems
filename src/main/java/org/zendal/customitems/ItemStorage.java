@@ -24,4 +24,9 @@ public class ItemStorage {
     public CustomItemStackFactory getCustomItemStackFactory(Material type, Integer customModelData){
        return storage.get(type.toString() + "#" + customModelData);
     }
+
+
+    public void init(){
+        Reflections reflections = new Reflections("my.package");
+    }
 }

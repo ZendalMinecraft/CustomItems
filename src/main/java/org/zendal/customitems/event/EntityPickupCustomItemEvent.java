@@ -3,7 +3,6 @@ package org.zendal.customitems.event;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.entity.EntityEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.jetbrains.annotations.NotNull;
 import org.zendal.customitems.item.CustomItem;
@@ -11,17 +10,15 @@ import org.zendal.customitems.item.CustomItem;
 /**
  * Proxy of EntityPickupItemEvent but
  */
-public class EntityPickupCustomItemEvent extends EntityEvent implements Cancellable {
+public class EntityPickupCustomItemEvent extends EntityPickupItemEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private final CustomItem item;
     private final EntityPickupItemEvent sourceEvent;
-    private final int remaining;
 
-    public EntityPickupCustomItemEvent(EntityPickupItemEvent e, @NotNull LivingEntity entity, @NotNull CustomItem item, int remaining) {
-        super(entity);
+    public EntityPickupCustomItemEvent(EntityPickupItemEvent e, @NotNull CustomItem item) {
+        super(e.getEntity(), item, e.getRemaining());
         this.sourceEvent = e;
         this.item = item;
-        this.remaining = remaining;
     }
 
     @NotNull
@@ -46,7 +43,7 @@ public class EntityPickupCustomItemEvent extends EntityEvent implements Cancella
      * @return amount remaining on the ground
      */
     public int getRemaining() {
-        return remaining;
+        return sourceEvent.getRemaining();
     }
 
     @Override
@@ -62,7 +59,7 @@ public class EntityPickupCustomItemEvent extends EntityEvent implements Cancella
     @NotNull
     @Override
     public HandlerList getHandlers() {
-        return sourceEvent.getHandlers();
+        return handlers;
     }
 
     @NotNull
