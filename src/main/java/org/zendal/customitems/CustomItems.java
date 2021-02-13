@@ -12,13 +12,7 @@ public final class CustomItems extends JavaPlugin {
     @Override
     public void onEnable() {
         var storage = new ItemStorage();
-        storage.registerCustomItemStack(Material.BARRIER, 12, new CustomItemStackFactory() {
-            @Override
-            public AbstractCustomItemStack build(ItemStack itemStack) {
-                return new ServiceItemStack(itemStack);
-            }
-        });
-        storage.init();
+        storage.init("org.zendal.customitems");
         this.getServer().getPluginManager().registerEvents(new TestListener(storage), this);
 
     }

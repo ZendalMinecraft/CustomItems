@@ -11,4 +11,10 @@ public @interface CustomItem {
     Material type();
 
     int customModelData();
+
+    /**
+     * Use auto
+     * @return
+     */
+    boolean defaultFactory() default true;
 }
