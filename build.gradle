@@ -1,4 +1,5 @@
 import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
     id 'java'
     id 'idea'
@@ -31,13 +32,13 @@ configurations {
     testCompile.extendsFrom compileOnly
 }
 dependencies {
-    extraLibs group: 'org.reflections', name: 'reflections', version: '0.9.12'
-    compileOnly group: 'org.reflections', name: 'reflections', version: '0.9.12'
+    extraLibs 'org.reflections:reflections:0.9.12'
 
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
     compileOnly 'org.jetbrains:annotations:16.0.2'
     compileOnly 'de.tr7zw:item-nbt-api-plugin:2.7.1'
-   compileOnly 'org.projectlombok:lombok:1.18.16'
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    compileOnly 'org.reflections:reflections:0.9.12'
 
 
     annotationProcessor 'org.projectlombok:lombok:1.18.16'

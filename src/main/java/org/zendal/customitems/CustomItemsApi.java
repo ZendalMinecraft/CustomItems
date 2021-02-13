@@ -1,15 +1,17 @@
 package org.zendal.customitems;
 
-import org.zendal.customitems.item.AbstractCustomItemStack;
+import org.zendal.customitems.item.manager.CustomItemStackHelper;
+import org.zendal.customitems.item.manager.CustomItemStackManager;
 
 /**
  * This interface for control custom items
  */
 public interface CustomItemsApi {
 
-    void scanPackagesForCustomItem(String... packages);
 
-    void registerCustomItem(Class<? extends AbstractCustomItemStack> clazz);
+    CustomItemStackManager getCustomItemStackManager();
 
-    void registerCustomItem(Class<? extends AbstractCustomItemStack> clazz, CustomItemStackFactory factory);
+
+    CustomItemStackHelper getCustomItemStackHelper();
+
 }

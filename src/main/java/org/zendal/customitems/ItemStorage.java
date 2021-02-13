@@ -3,8 +3,10 @@ package org.zendal.customitems;
 import lombok.SneakyThrows;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 import org.reflections.Reflections;
 import org.zendal.customitems.item.AbstractCustomItemStack;
+import org.zendal.customitems.item.CustomItemStackFactory;
 import org.zendal.customitems.item.annotation.CustomItem;
 
 import java.lang.reflect.Constructor;
@@ -41,7 +43,7 @@ public class ItemStorage {
         }
         storage.putIfAbsent(annotation.type().toString() + "#" + annotation.customModelData(), factory);
     }
-
+    @Nullable
     public CustomItemStackFactory getCustomItemStackFactory(Material type, Integer customModelData) {
         return storage.get(type.toString() + "#" + customModelData);
     }
@@ -87,13 +89,13 @@ public class ItemStorage {
         throw new RuntimeException("Can't find default constructor for: " + clazz);
     }
 
-    public <T extends AbstractCustomItemStack> AbstractCustomItemStack buildItem(Class<? extends AbstractCustomItemStack> customItemStackClass) {
+    public <T extends AbstractCustomItemStack> T buildItem(Class<? extends T> customItemStackClass) {
         var annotation = customItemStackClass.getAnnotation(CustomItem.class);
         var factory = storage.get(annotation.type().toString() + "#" + annotation.customModelData());
         var itemStack = new ItemStack(annotation.type());
         var meta = itemStack.getItemMeta();
         meta.setCustomModelData(annotation.customModelData());
         itemStack.setItemMeta(meta);
-       return factory.build(itemStack);
+       return (T) factory.build(itemStack);
     }
 }
