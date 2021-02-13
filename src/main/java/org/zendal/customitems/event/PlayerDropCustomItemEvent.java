@@ -5,6 +5,9 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.jetbrains.annotations.NotNull;
 import org.zendal.customitems.item.CustomItem;
 
+/**
+ * Proxy for PlayerDropItemEvent
+ */
 public class PlayerDropCustomItemEvent extends PlayerDropItemEvent {
 
     private static final HandlerList handlers = new HandlerList();

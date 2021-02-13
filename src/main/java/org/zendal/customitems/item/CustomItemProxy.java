@@ -74,484 +74,486 @@ public class CustomItemProxy implements CustomItem {
 
     @Override
     public void setThrower(@Nullable UUID uuid) {
-
+        item.setThrower(uuid);
     }
 
     @Nullable
     @Override
     public UUID getThrower() {
-        return null;
+        return item.getThrower();
     }
 
     @NotNull
     @Override
     public Location getLocation() {
-        return null;
+        return item.getLocation();
     }
 
     @Nullable
     @Override
     public Location getLocation(@Nullable Location loc) {
-        return null;
+        return item.getLocation(loc);
     }
 
     @Override
     public void setVelocity(@NotNull Vector velocity) {
-
+        item.setVelocity(velocity);
     }
 
     @NotNull
     @Override
     public Vector getVelocity() {
-        return null;
+        return item.getVelocity();
     }
 
     @Override
     public double getHeight() {
-        return 0;
+        return item.getHeight();
     }
 
     @Override
     public double getWidth() {
-        return 0;
+        return item.getWidth();
     }
 
     @NotNull
     @Override
     public BoundingBox getBoundingBox() {
-        return null;
+        return item.getBoundingBox();
     }
 
     @Override
     public boolean isOnGround() {
-        return false;
+        return item.isOnGround();
     }
 
     @Override
     public boolean isInWater() {
-        return false;
+        return item.isInWater();
     }
 
     @NotNull
     @Override
     public World getWorld() {
-        return null;
+        return item.getWorld();
     }
 
     @Override
     public void setRotation(float yaw, float pitch) {
-
+        item.setRotation(yaw, pitch);
     }
 
     @Override
     public boolean teleport(@NotNull Location location) {
-        return false;
+        return item.teleport(location);
     }
 
     @Override
     public boolean teleport(@NotNull Location location, @NotNull PlayerTeleportEvent.TeleportCause cause) {
-        return false;
+        return item.teleport(location, cause);
     }
 
     @Override
     public boolean teleport(@NotNull Entity destination) {
-        return false;
+        return item.teleport(destination);
     }
 
     @Override
     public boolean teleport(@NotNull Entity destination, @NotNull PlayerTeleportEvent.TeleportCause cause) {
-        return false;
+        return item.teleport(destination, cause);
     }
 
     @NotNull
     @Override
     public List<Entity> getNearbyEntities(double x, double y, double z) {
-        return null;
+        return item.getNearbyEntities(x, y, z);
     }
 
     @Override
     public int getEntityId() {
-        return 0;
+        return item.getEntityId();
     }
 
     @Override
     public int getFireTicks() {
-        return 0;
+        return item.getFireTicks();
     }
 
     @Override
     public int getMaxFireTicks() {
-        return 0;
+        return item.getMaxFireTicks();
     }
 
     @Override
     public void setFireTicks(int ticks) {
-
+        item.setFireTicks(ticks);
     }
 
     @Override
     public void remove() {
-
+        item.remove();
     }
 
     @Override
     public boolean isDead() {
-        return false;
+        return item.isDead();
     }
 
     @Override
     public boolean isValid() {
-        return false;
+        return item.isValid();
     }
 
     @Override
     public void sendMessage(@NotNull String message) {
-
+        item.sendMessage(message);
     }
 
     @Override
     public void sendMessage(@NotNull String[] messages) {
-
+        item.sendMessage(messages);
     }
 
     @Override
     public void sendMessage(@Nullable UUID sender, @NotNull String message) {
-
+        item.sendMessage(sender, message);
     }
 
     @Override
     public void sendMessage(@Nullable UUID sender, @NotNull String[] messages) {
-
+        item.sendMessage(sender, messages);
     }
 
     @NotNull
     @Override
     public Server getServer() {
-        return null;
+        return item.getServer();
     }
 
     @NotNull
     @Override
     public String getName() {
-        return null;
+        return item.getName();
     }
 
     @Override
     public boolean isPersistent() {
-        return false;
+        return item.isPersistent();
     }
 
     @Override
     public void setPersistent(boolean persistent) {
-
+        item.setPersistent(persistent);
     }
 
     @Nullable
+    @Deprecated
     @Override
     public Entity getPassenger() {
-        return null;
+        return item.getPassenger();
     }
 
+    @Deprecated
     @Override
     public boolean setPassenger(@NotNull Entity passenger) {
-        return false;
+        return item.setPassenger(passenger);
     }
 
     @NotNull
     @Override
     public List<Entity> getPassengers() {
-        return null;
+        return item.getPassengers();
     }
 
     @Override
     public boolean addPassenger(@NotNull Entity passenger) {
-        return false;
+        return item.addPassenger(passenger);
     }
 
     @Override
     public boolean removePassenger(@NotNull Entity passenger) {
-        return false;
+        return item.removePassenger(passenger);
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return item.isEmpty();
     }
 
     @Override
     public boolean eject() {
-        return false;
+        return item.eject();
     }
 
     @Override
     public float getFallDistance() {
-        return 0;
+        return item.getFallDistance();
     }
 
     @Override
     public void setFallDistance(float distance) {
-
+        item.setFallDistance(distance);
     }
 
     @Override
     public void setLastDamageCause(@Nullable EntityDamageEvent event) {
-
+        item.setLastDamageCause(event);
     }
 
     @Nullable
     @Override
     public EntityDamageEvent getLastDamageCause() {
-        return null;
+        return item.getLastDamageCause();
     }
 
     @NotNull
     @Override
     public UUID getUniqueId() {
-        return null;
+        return item.getUniqueId();
     }
 
     @Override
     public int getTicksLived() {
-        return 0;
+        return item.getTicksLived();
     }
 
     @Override
     public void setTicksLived(int value) {
-
+        item.setTicksLived(value);
     }
 
     @Override
     public void playEffect(@NotNull EntityEffect type) {
-
+        item.playEffect(type);
     }
 
     @NotNull
     @Override
     public EntityType getType() {
-        return null;
+        return item.getType();
     }
 
     @Override
     public boolean isInsideVehicle() {
-        return false;
+        return item.isInsideVehicle();
     }
 
     @Override
     public boolean leaveVehicle() {
-        return false;
+        return item.leaveVehicle();
     }
 
     @Nullable
     @Override
     public Entity getVehicle() {
-        return null;
+        return item.getVehicle();
     }
 
     @Override
     public void setCustomNameVisible(boolean flag) {
-
+        item.setCustomNameVisible(flag);
     }
 
     @Override
     public boolean isCustomNameVisible() {
-        return false;
+        return item.isCustomNameVisible();
     }
 
     @Override
     public void setGlowing(boolean flag) {
-
+        item.setGlowing(flag);
     }
 
     @Override
     public boolean isGlowing() {
-        return false;
+        return item.isGlowing();
     }
 
     @Override
     public void setInvulnerable(boolean flag) {
-
+        item.setInvulnerable(flag);
     }
 
     @Override
     public boolean isInvulnerable() {
-        return false;
+        return item.isInvulnerable();
     }
 
     @Override
     public boolean isSilent() {
-        return false;
+        return item.isSilent();
     }
 
     @Override
     public void setSilent(boolean flag) {
-
+        item.setSilent(flag);
     }
 
     @Override
     public boolean hasGravity() {
-        return false;
+        return item.hasGravity();
     }
 
     @Override
     public void setGravity(boolean gravity) {
-
+        item.setGravity(gravity);
     }
 
     @Override
     public int getPortalCooldown() {
-        return 0;
+        return item.getPortalCooldown();
     }
 
     @Override
     public void setPortalCooldown(int cooldown) {
-
+        item.setPortalCooldown(cooldown);
     }
 
     @NotNull
     @Override
     public Set<String> getScoreboardTags() {
-        return null;
+        return item.getScoreboardTags();
     }
 
     @Override
     public boolean addScoreboardTag(@NotNull String tag) {
-        return false;
+        return item.addScoreboardTag(tag);
     }
 
     @Override
     public boolean removeScoreboardTag(@NotNull String tag) {
-        return false;
+        return item.removeScoreboardTag(tag);
     }
 
     @NotNull
     @Override
     public PistonMoveReaction getPistonMoveReaction() {
-        return null;
+        return item.getPistonMoveReaction();
     }
 
     @NotNull
     @Override
     public BlockFace getFacing() {
-        return null;
+        return item.getFacing();
     }
 
     @NotNull
     @Override
     public Pose getPose() {
-        return null;
+        return item.getPose();
     }
 
     @NotNull
     @Override
     public Spigot spigot() {
-        return null;
+        return item.spigot();
     }
 
     @Nullable
     @Override
     public String getCustomName() {
-        return null;
+        return item.getCustomName();
     }
 
     @Override
     public void setCustomName(@Nullable String name) {
-
+        item.setCustomName(name);
     }
 
     @Override
     public void setMetadata(@NotNull String metadataKey, @NotNull MetadataValue newMetadataValue) {
-
+        item.setMetadata(metadataKey, newMetadataValue);
     }
 
     @NotNull
     @Override
     public List<MetadataValue> getMetadata(@NotNull String metadataKey) {
-        return null;
+        return item.getMetadata(metadataKey);
     }
 
     @Override
     public boolean hasMetadata(@NotNull String metadataKey) {
-        return false;
+        return item.hasMetadata(metadataKey);
     }
 
     @Override
     public void removeMetadata(@NotNull String metadataKey, @NotNull Plugin owningPlugin) {
-
+        item.removeMetadata(metadataKey, owningPlugin);
     }
 
     @Override
     public boolean isPermissionSet(@NotNull String name) {
-        return false;
+        return item.isPermissionSet(name);
     }
 
     @Override
     public boolean isPermissionSet(@NotNull Permission perm) {
-        return false;
+        return item.isPermissionSet(perm);
     }
 
     @Override
     public boolean hasPermission(@NotNull String name) {
-        return false;
+        return item.hasPermission(name);
     }
 
     @Override
     public boolean hasPermission(@NotNull Permission perm) {
-        return false;
+        return item.hasPermission(perm);
     }
 
     @NotNull
     @Override
     public PermissionAttachment addAttachment(@NotNull Plugin plugin, @NotNull String name, boolean value) {
-        return null;
+        return item.addAttachment(plugin, name, value);
     }
 
     @NotNull
     @Override
     public PermissionAttachment addAttachment(@NotNull Plugin plugin) {
-        return null;
+        return item.addAttachment(plugin);
     }
 
     @Nullable
     @Override
     public PermissionAttachment addAttachment(@NotNull Plugin plugin, @NotNull String name, boolean value, int ticks) {
-        return null;
+        return item.addAttachment(plugin, name, value, ticks);
     }
 
     @Nullable
     @Override
     public PermissionAttachment addAttachment(@NotNull Plugin plugin, int ticks) {
-        return null;
+        return item.addAttachment(plugin, ticks);
     }
 
     @Override
     public void removeAttachment(@NotNull PermissionAttachment attachment) {
-
+        item.removeAttachment(attachment);
     }
 
     @Override
     public void recalculatePermissions() {
-
+        item.recalculatePermissions();
     }
 
     @NotNull
     @Override
     public Set<PermissionAttachmentInfo> getEffectivePermissions() {
-        return null;
+        return item.getEffectivePermissions();
     }
 
     @Override
     public boolean isOp() {
-        return false;
+        return item.isOp();
     }
 
     @Override
     public void setOp(boolean value) {
-
+        item.setOp(value);
     }
 
     @NotNull
     @Override
     public PersistentDataContainer getPersistentDataContainer() {
-        return null;
+        return item.getPersistentDataContainer();
     }
 }
