@@ -16,7 +16,7 @@ public class PlayerLogInListener implements Listener {
 
     @EventHandler
     public void onLogin(PlayerLoginEvent event) {
-        Bukkit.getScheduler().runTaskLater(plugin, () -> event.getPlayer().setResourcePack("https://tlauncher.org/download/12817"), 20);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> event.getPlayer().setResourcePack("https://tlauncher.org/download/12817"), 20L);
 
     }
 
