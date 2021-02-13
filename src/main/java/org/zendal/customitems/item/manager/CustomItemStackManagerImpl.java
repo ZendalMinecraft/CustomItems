@@ -1,7 +1,9 @@
 package org.zendal.customitems.item.manager;
 
 import lombok.SneakyThrows;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 import org.zendal.customitems.item.AbstractCustomItemStack;
 import org.zendal.customitems.item.CustomItemStackFactory;
 import org.zendal.customitems.item.annotation.CustomItem;
@@ -9,19 +11,34 @@ import org.zendal.customitems.item.storage.CustomItemStackStorage;
 import org.zendal.customitems.reflection.ReflectionHelper;
 
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.logging.Logger;
 
+/**
+ * Implements of manager
+ */
 public class CustomItemStackManagerImpl implements CustomItemStackManager {
 
+    /**
+     * Instance of logger
+     */
+    private final Logger logger;
+
+    /**
+     * Storage
+     */
     private final CustomItemStackStorage customItemStackStorage;
     private final ReflectionHelper reflectionHelper;
 
-    public CustomItemStackManagerImpl(ReflectionHelper reflectionHelper, CustomItemStackStorage customItemStackStorage) {
+    public CustomItemStackManagerImpl(Logger pluginLogger, ReflectionHelper reflectionHelper, CustomItemStackStorage customItemStackStorage) {
+        this.logger = pluginLogger;
         this.reflectionHelper = reflectionHelper;
         this.customItemStackStorage = customItemStackStorage;
     }
 
     @Override
     public void scanPackagesForCustomItemStack(String... packages) {
+        logger.info("[CustomItemManager] Start scanning packages: " + Arrays.toString(packages));
         for (String onePackage : packages) {
             var classes = reflectionHelper.getAllClassesWithAnnotation(onePackage, CustomItem.class);
 
@@ -41,6 +58,7 @@ public class CustomItemStackManagerImpl implements CustomItemStackManager {
                         return tryFindDefaultConstructorCustomItem((Class<? extends AbstractCustomItemStack>) clazz, itemStack);
                     }
                 });
+                logger.info("[CustomItemManager] Successful loaded item: " + clazz);
             });
         }
     }
@@ -82,5 +100,12 @@ public class CustomItemStackManagerImpl implements CustomItemStackManager {
                     " Please select defaultFactory = false in CustomItem annotation");
         }
         this.customItemStackStorage.registerCustomItemStack(annotation.type(), annotation.customModelData(), factory);
+    }
+
+
+    @Nullable
+    @Override
+    public CustomItemStackFactory getCustomItemStackFactory(Material type, Integer customModelData) {
+        return this.customItemStackStorage.getCustomItemStackFactory(type, customModelData);
     }
 }

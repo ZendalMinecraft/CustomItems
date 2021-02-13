@@ -4,6 +4,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.zendal.customitems.event.EntityPickupCustomItemEvent;
+import org.zendal.customitems.event.PlayerClickOnCustomItemStackInInventoryEvent;
 import org.zendal.customitems.event.PlayerDropCustomItemEvent;
 import org.zendal.customitems.test.ServiceItemStack;
 
@@ -31,5 +32,12 @@ public class TestListener implements Listener {
         System.out.println(e.getItemDrop().getItemStack());
         // e.setCancelled(true);
         // e.getItemDrop().teleport(new Location(e.getItemDrop().getLocation().getWorld(), e.getItemDrop().getLocation().getBlockX(), 100, e.getItemDrop().getLocation().getBlockZ()));
+    }
+
+    @EventHandler
+    public void onS(PlayerClickOnCustomItemStackInInventoryEvent e){
+        System.out.println("Custom in inventory");
+        System.out.println("--");
+        e.setCancelled(true);
     }
 }

@@ -1,28 +1,30 @@
 package org.zendal.customitems.listener;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.zendal.customitems.ItemStorage;
 import org.zendal.customitems.event.EntityPickupCustomItemEvent;
+import org.zendal.customitems.event.PlayerClickOnCustomItemStackInInventoryEvent;
 import org.zendal.customitems.event.PlayerDropCustomItemEvent;
+import org.zendal.customitems.item.manager.CustomItemStackManager;
 
 public class PlayerListener implements Listener {
 
-    private final ItemStorage itemStorage;
+    private final CustomItemStackManager customItemStackManager;
 
-    public PlayerListener(ItemStorage itemStorage) {
-        this.itemStorage = itemStorage;
+    public PlayerListener(CustomItemStackManager customItemStackManager) {
+        this.customItemStackManager = customItemStackManager;
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onEntityPickupItem(EntityPickupItemEvent e) {
 
-        var value = ListenerUtils.getCustomItemByItem(itemStorage, e.getItem());
+        var value = ListenerUtils.getCustomItemByItem(customItemStackManager, e.getItem());
 
         if (value != null) {
             var event = new EntityPickupCustomItemEvent(e, value);
@@ -33,17 +35,22 @@ public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerDropItem(PlayerDropItemEvent e) {
-        var value = ListenerUtils.getCustomItemByItem(itemStorage, e.getItemDrop());
+        var value = ListenerUtils.getCustomItemByItem(customItemStackManager, e.getItemDrop());
         if (value != null) {
             var event = new PlayerDropCustomItemEvent(e, value);
             Bukkit.getPluginManager().callEvent(event);
         }
     }
 
-    @EventHandler
-    public void on(InventoryClickEvent e){
-        System.out.println(e.getCurrentItem());
-        System.out.println(e.getCursor());
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPlayerInventoryClick(InventoryClickEvent e) {
+        if (!(e.getWhoClicked() instanceof Player) || e.getCurrentItem() == null) {
+            return;
+        }
+        var customItemStack = ListenerUtils.getCustomItemStackByItemStack(this.customItemStackManager, e.getCurrentItem());
+        if (customItemStack != null) {
+            Bukkit.getPluginManager().callEvent(new PlayerClickOnCustomItemStackInInventoryEvent(e, customItemStack));
+        }
     }
 
 }

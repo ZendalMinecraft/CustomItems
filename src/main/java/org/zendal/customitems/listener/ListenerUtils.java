@@ -3,31 +3,40 @@ package org.zendal.customitems.listener;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
-import org.zendal.customitems.ItemStorage;
 import org.zendal.customitems.item.AbstractCustomItemStack;
 import org.zendal.customitems.item.CustomItem;
 import org.zendal.customitems.item.CustomItemProxy;
+import org.zendal.customitems.item.manager.CustomItemStackManager;
 
 public final class ListenerUtils {
 
 
     @Nullable
-    public static CustomItem getCustomItemByItem(ItemStorage itemStorage, Item item) {
-        ItemStack itemStack = item.getItemStack();
+    public static CustomItem getCustomItemByItem(CustomItemStackManager customItemStackManager, Item item) {
 
-        if (!itemStack.hasItemMeta() || !itemStack.getItemMeta().hasCustomModelData()) {
+        try {
+            var customItemStack = ListenerUtils.getCustomItemStackByItemStack(customItemStackManager, item.getItemStack());
+            if (customItemStack != null) {
+                return new CustomItemProxy(item, customItemStack);
+            }
+            System.out.println("Found custom item without registry: " + item.getItemStack().toString());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    @Nullable
+    public static AbstractCustomItemStack getCustomItemStackByItemStack(CustomItemStackManager customItemStackManager, ItemStack itemStack) {
+
+        if (!itemStack.hasItemMeta() || itemStack.getItemMeta() != null && !itemStack.getItemMeta().hasCustomModelData()) {
             return null;
         }
 
-        try {
-            var customItemStackFactory = itemStorage.getCustomItemStackFactory(itemStack.getType(), itemStack.getItemMeta().getCustomModelData());
-            if (customItemStackFactory != null) {
-                AbstractCustomItemStack customItemStack = customItemStackFactory.build(itemStack);
-                return new CustomItemProxy(item, customItemStack);
-            }
-            System.out.println("Found custom item without registry: " + itemStack.toString());
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        var customItemStackFactory = customItemStackManager.getCustomItemStackFactory(itemStack.getType(), itemStack.getItemMeta().getCustomModelData());
+
+        if (customItemStackFactory != null) {
+            return customItemStackFactory.build(itemStack);
         }
         return null;
     }
