@@ -26,7 +26,7 @@ public final class CustomItems extends JavaPlugin {
 
         this.api.getCustomItemStackManager().scanPackagesForCustomItemStack("org.zendal");
 
-        this.getServer().getPluginManager().registerEvents(new PlayerListener(this.api.getCustomItemStackManager()), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerListener(this.api.getCustomItemStackManager(), this), this);
         this.getServer().getPluginManager().registerEvents(new TestListener(), this);
     }
 
