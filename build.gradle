@@ -3,12 +3,31 @@ import org.apache.tools.ant.filters.ReplaceTokens
 plugins {
     id 'java'
     id 'idea'
+    id 'maven-publish'
 }
 group = 'org.zendal'
-version = '0.0.1'
+version = '0.0.1-beta'
 
 sourceCompatibility = '11'
 targetCompatibility = '11'
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/ZendalMinecraft/CustomItems")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
 
 repositories {
     mavenCentral()
