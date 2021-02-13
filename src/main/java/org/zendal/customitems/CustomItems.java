@@ -1,6 +1,10 @@
 package org.zendal.customitems;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.Nullable;
+import org.zendal.customitems.configuration.CustomItemsConfiguration;
+import org.zendal.customitems.configuration.CustomItemsConfigurationData;
+import org.zendal.customitems.configuration.CustomItemsConfigurationImpl;
 import org.zendal.customitems.item.helper.CustomItemStackHelper;
 import org.zendal.customitems.item.helper.CustomItemStackHelperImpl;
 import org.zendal.customitems.item.manager.CustomItemStackManager;
@@ -8,7 +12,7 @@ import org.zendal.customitems.item.manager.CustomItemStackManagerImpl;
 import org.zendal.customitems.item.storage.CustomItemStackStorage;
 import org.zendal.customitems.item.storage.HashMapCustomItemStackStorage;
 import org.zendal.customitems.listener.PlayerListener;
-import org.zendal.customitems.listener.PlayerLogInListener;
+import org.zendal.customitems.listener.ResourcePackListener;
 import org.zendal.customitems.listener.TestListener;
 import org.zendal.customitems.reflection.ReflectionHelper;
 import org.zendal.customitems.reflection.ReflectionHelperImpl;
@@ -29,7 +33,7 @@ public final class CustomItems extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this.api.getCustomItemStackManager()), this);
         this.getServer().getPluginManager().registerEvents(new TestListener(), this);
-        this.getServer().getPluginManager().registerEvents(new PlayerLogInListener(this), this);
+        this.getServer().getPluginManager().registerEvents(new ResourcePackListener(this, this.api.getConfiguration()), this);
     }
 
 
@@ -39,6 +43,8 @@ public final class CustomItems extends JavaPlugin {
 
             private final CustomItemStackHelper customItemStackHelper = new CustomItemStackHelperImpl(storage);
 
+            private CustomItemsConfiguration configuration;
+
             @Override
             public CustomItemStackManager getCustomItemStackManager() {
                 return this.customItemStackManager;
@@ -47,6 +53,20 @@ public final class CustomItems extends JavaPlugin {
             @Override
             public CustomItemStackHelper getCustomItemStackHelper() {
                 return customItemStackHelper;
+            }
+
+            @Override
+            public void setConfigurationData(CustomItemsConfigurationData configurationData) {
+                if (configuration != null) {
+                    throw new IllegalStateException("Configuration already defined");
+                }
+                this.configuration = new CustomItemsConfigurationImpl(logger, configurationData);
+            }
+
+            @Nullable
+            @Override
+            public CustomItemsConfiguration getConfiguration() {
+                return configuration;
             }
         };
     }

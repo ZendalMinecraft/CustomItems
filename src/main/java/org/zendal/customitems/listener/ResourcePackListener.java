@@ -6,22 +6,27 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 import org.bukkit.plugin.Plugin;
+import org.zendal.customitems.configuration.CustomItemsConfiguration;
 
-public class PlayerLogInListener implements Listener {
+public class ResourcePackListener implements Listener {
     private final Plugin plugin;
 
-    public PlayerLogInListener(Plugin plugin) {
+    private final CustomItemsConfiguration configuration;
+
+    public ResourcePackListener(Plugin plugin, CustomItemsConfiguration configuration) {
         this.plugin = plugin;
+        this.configuration = configuration;
     }
 
     @EventHandler
     public void onLogin(PlayerLoginEvent event) {
-        Bukkit.getScheduler().runTaskLater(plugin, () -> event.getPlayer().setResourcePack("https://tlauncher.org/download/12817"), 20L);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> event.getPlayer().setResourcePack(configuration.getResourcePackUrl(), configuration.getResourcePackHash()), 20L);
 
     }
 
     @EventHandler
-    public void onResourcepackStatusEvent(PlayerResourcePackStatusEvent event) {
+    public void onResourcePackStatus(PlayerResourcePackStatusEvent event) {
+        //TODO update event check is Required Ivan
         if (event.getStatus() == PlayerResourcePackStatusEvent.Status.DECLINED) {
             event.getPlayer().kickPlayer(" You did not accept the resourcepack request.");
         }
