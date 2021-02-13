@@ -20,7 +20,6 @@ public final class CustomItems extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // var storage = new ItemStorage();
         var reflection = new ReflectionHelperImpl();
         var storage = new HashMapCustomItemStackStorage();
         this.api = this.buildCustomItemsApi(this.getLogger(), reflection, storage);
