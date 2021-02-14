@@ -1,6 +1,7 @@
 package org.zendal.customitems;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.zendal.customitems.configuration.CustomItemsConfiguration;
 import org.zendal.customitems.configuration.CustomItemsConfigurationData;
@@ -72,7 +73,12 @@ public final class CustomItems extends JavaPlugin {
         };
     }
 
-
+    /**
+     * Get API of plugin
+     *
+     * @return API of plugin
+     */
+    @NotNull
     public CustomItemsApi getCustomItemsApi() {
         return this.api;
     }
