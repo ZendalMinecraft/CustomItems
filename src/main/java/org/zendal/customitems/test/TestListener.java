@@ -3,6 +3,7 @@ package org.zendal.customitems.test;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.zendal.customitems.event.EntityDamageByPlayerWithCustomItemStackEvent;
 import org.zendal.customitems.event.EntityPickupCustomItemEvent;
 import org.zendal.customitems.event.PlayerClickOnCustomItemStackInInventoryEvent;
 import org.zendal.customitems.event.PlayerDropCustomItemEvent;
@@ -41,5 +42,11 @@ public class TestListener implements Listener {
         System.out.println("Custom in inventory");
         System.out.println("--");
         e.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onD(EntityDamageByPlayerWithCustomItemStackEvent event){
+        System.out.println(event.getDamager().getName());
+        event.getSourceEvent().setCancelled(true);
     }
 }
