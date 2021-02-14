@@ -42,7 +42,8 @@ public class ResourcePackListener implements Listener {
         if (this.customItemsApi.getConfiguration() == null) {
             return;
         }
-        if (this.customItemsApi.getConfiguration().resourcePackRequired()) {
+        if (this.customItemsApi.getConfiguration().resourcePackRequired() &&
+                (event.getStatus() == PlayerResourcePackStatusEvent.Status.DECLINED || event.getStatus() == PlayerResourcePackStatusEvent.Status.FAILED_DOWNLOAD)) {
             event.getPlayer().kickPlayer("You did not accept the ResourcePack request.");
         }
     }
