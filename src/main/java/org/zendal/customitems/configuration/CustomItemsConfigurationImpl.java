@@ -1,8 +1,9 @@
 package org.zendal.customitems.configuration;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
+import lombok.SneakyThrows;
+
+import java.io.BufferedInputStream;
+import java.net.URL;
 import java.util.logging.Logger;
 
 /**
@@ -18,11 +19,23 @@ public class CustomItemsConfigurationImpl implements CustomItemsConfiguration {
         this.customItemsConfigurationData = configurationData;
     }
 
-    private byte[] encrypt(String x) throws NoSuchAlgorithmException {
+    @SneakyThrows
+    private byte[] encrypt(BufferedInputStream file) {
         var digest = java.security.MessageDigest.getInstance("SHA-1");
-        digest.reset();
-        digest.update(x.getBytes(StandardCharsets.UTF_8));
+        int n = 0;
+        byte[] buffer = new byte[8192];
+        while (n != -1) {
+            n = file.read(buffer);
+            if (n > 0) {
+                digest.update(buffer, 0, n);
+            }
+        }
         return digest.digest();
+    }
+
+    @SneakyThrows
+    private BufferedInputStream loadFile() {
+        return new BufferedInputStream(new URL(customItemsConfigurationData.getResourcePackURL()).openStream());
     }
 
     @Override
@@ -36,7 +49,7 @@ public class CustomItemsConfigurationImpl implements CustomItemsConfiguration {
     }
 
     @Override
-    public byte[] getResourcePackHash() throws NoSuchAlgorithmException {
-        return encrypt(customItemsConfigurationData.getResourcePackURL());
+    public byte[] getResourcePackHash() {
+        return encrypt(this.loadFile());
     }
 }
