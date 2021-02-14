@@ -28,7 +28,10 @@ public final class CustomItems extends JavaPlugin {
         var reflection = new ReflectionHelperImpl();
         var storage = new HashMapCustomItemStackStorage();
         this.api = this.buildCustomItemsApi(this.getLogger(), reflection, storage);
-
+        this.api.setConfigurationData(CustomItemsConfigurationData.builder()
+                .resourcePackURL("https://tlauncher.org/download/12817")
+                .build()
+        );
         this.api.getCustomItemStackManager().scanPackagesForCustomItemStack("org.zendal");
 
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this.api.getCustomItemStackManager()), this);

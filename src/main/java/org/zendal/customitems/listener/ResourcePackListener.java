@@ -8,6 +8,9 @@ import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 import org.bukkit.plugin.Plugin;
 import org.zendal.customitems.configuration.CustomItemsConfiguration;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 public class ResourcePackListener implements Listener {
     private final Plugin plugin;
 
@@ -20,14 +23,19 @@ public class ResourcePackListener implements Listener {
 
     @EventHandler
     public void onLogin(PlayerLoginEvent event) {
-        Bukkit.getScheduler().runTaskLater(plugin, () -> event.getPlayer().setResourcePack(configuration.getResourcePackUrl(), configuration.getResourcePackHash()), 20L);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            try {
+                event.getPlayer().setResourcePack(configuration.getResourcePackUrl(), configuration.getResourcePackHash());
+            } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }, 20L);
 
     }
 
     @EventHandler
     public void onResourcePackStatus(PlayerResourcePackStatusEvent event) {
-        //TODO update event check is Required Ivan
-        if (event.getStatus() == PlayerResourcePackStatusEvent.Status.DECLINED) {
+        if (configuration.resourcePackRequired()){
             event.getPlayer().kickPlayer(" You did not accept the resourcepack request.");
         }
     }

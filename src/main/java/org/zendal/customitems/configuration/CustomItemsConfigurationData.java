@@ -9,5 +9,9 @@ import lombok.Data;
 @Data
 @Builder
 public final class CustomItemsConfigurationData {
-    //TODO new field Ivan
+
+    private String resourcePackURL;
+    @Builder.Default
+    private boolean flag = true;
+
 }
