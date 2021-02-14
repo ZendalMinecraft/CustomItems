@@ -8,9 +8,6 @@ import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 import org.bukkit.plugin.Plugin;
 import org.zendal.customitems.CustomItemsApi;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-
 public class ResourcePackListener implements Listener {
     private final Plugin plugin;
 
@@ -27,13 +24,10 @@ public class ResourcePackListener implements Listener {
             return;
         }
         var configuration = this.customItemsApi.getConfiguration();
-        Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            try {
-                event.getPlayer().setResourcePack(configuration.getResourcePackUrl(), configuration.getResourcePackHash());
-            } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-        }, 20L);
+        Bukkit.getScheduler().runTaskLater(plugin, () ->
+                        event.getPlayer().setResourcePack(configuration.getResourcePackUrl(), configuration.getResourcePackHash()),
+                20L
+        );
 
     }
 
