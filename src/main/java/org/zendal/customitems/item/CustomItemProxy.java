@@ -49,6 +49,7 @@ public class CustomItemProxy implements CustomItem {
             throw new IllegalArgumentException("Can't change custom item stack to default item stack");
         }
         this.customItemStack = (AbstractCustomItemStack) stack;
+        this.item.setItemStack(stack);
     }
 
     @Override
