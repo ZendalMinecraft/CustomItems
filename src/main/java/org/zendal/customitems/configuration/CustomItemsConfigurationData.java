@@ -3,6 +3,8 @@ package org.zendal.customitems.configuration;
 import lombok.Builder;
 import lombok.Data;
 
+import java.net.URL;
+
 /**
  * Data of plugin configuration
  */
@@ -10,8 +12,16 @@ import lombok.Data;
 @Builder
 public final class CustomItemsConfigurationData {
 
-    private String resourcePackURL;
+    /**
+     * Resource pack url
+     */
+    private URL resourcePackUrl;
+
+
+    /**
+     * Is a texture pack required
+     */
     @Builder.Default
-    private boolean flag = true;
+    private boolean resourcePackRequired = true;
 
 }

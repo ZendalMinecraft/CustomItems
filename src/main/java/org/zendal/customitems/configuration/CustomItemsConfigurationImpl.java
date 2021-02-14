@@ -3,7 +3,7 @@ package org.zendal.customitems.configuration;
 import lombok.SneakyThrows;
 
 import java.io.BufferedInputStream;
-import java.net.URL;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
@@ -13,10 +13,12 @@ public class CustomItemsConfigurationImpl implements CustomItemsConfiguration {
 
     private final Logger logger;
     private final CustomItemsConfigurationData customItemsConfigurationData;
+    private final byte[] hash;
 
-    public CustomItemsConfigurationImpl(Logger logger, CustomItemsConfigurationData configurationData) {
+    public CustomItemsConfigurationImpl(Logger logger, CustomItemsConfigurationData configurationData) throws IOException {
         this.logger = logger;
         this.customItemsConfigurationData = configurationData;
+        this.hash = encrypt(this.loadFile());
     }
 
     @SneakyThrows
@@ -33,23 +35,22 @@ public class CustomItemsConfigurationImpl implements CustomItemsConfiguration {
         return digest.digest();
     }
 
-    @SneakyThrows
-    private BufferedInputStream loadFile() {
-        return new BufferedInputStream(new URL(customItemsConfigurationData.getResourcePackURL()).openStream());
+    private BufferedInputStream loadFile() throws IOException {
+        return new BufferedInputStream(customItemsConfigurationData.getResourcePackUrl().openStream());
     }
 
     @Override
     public boolean resourcePackRequired() {
-        return false;
+        return customItemsConfigurationData.isResourcePackRequired();
     }
 
     @Override
     public String getResourcePackUrl() {
-        return customItemsConfigurationData.getResourcePackURL();
+        return customItemsConfigurationData.getResourcePackUrl().toString();
     }
 
     @Override
     public byte[] getResourcePackHash() {
-        return encrypt(this.loadFile());
+        return this.hash;
     }
 }

@@ -17,6 +17,7 @@ import org.zendal.customitems.listener.TestListener;
 import org.zendal.customitems.reflection.ReflectionHelper;
 import org.zendal.customitems.reflection.ReflectionHelperImpl;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public final class CustomItems extends JavaPlugin {
@@ -28,15 +29,12 @@ public final class CustomItems extends JavaPlugin {
         var reflection = new ReflectionHelperImpl();
         var storage = new HashMapCustomItemStackStorage();
         this.api = this.buildCustomItemsApi(this.getLogger(), reflection, storage);
-        this.api.setConfigurationData(CustomItemsConfigurationData.builder()
-                .resourcePackURL("https://tlauncher.org/download/12817")
-                .build()
-        );
+
         this.api.getCustomItemStackManager().scanPackagesForCustomItemStack("org.zendal");
 
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this.api.getCustomItemStackManager()), this);
         this.getServer().getPluginManager().registerEvents(new TestListener(), this);
-        this.getServer().getPluginManager().registerEvents(new ResourcePackListener(this, this.api.getConfiguration()), this);
+        this.getServer().getPluginManager().registerEvents(new ResourcePackListener(this, this.api), this);
     }
 
 
@@ -59,7 +57,7 @@ public final class CustomItems extends JavaPlugin {
             }
 
             @Override
-            public void setConfigurationData(CustomItemsConfigurationData configurationData) {
+            public void setConfigurationData(CustomItemsConfigurationData configurationData) throws IOException {
                 if (configuration != null) {
                     throw new IllegalStateException("Configuration already defined");
                 }

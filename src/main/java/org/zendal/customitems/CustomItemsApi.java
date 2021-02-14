@@ -6,6 +6,8 @@ import org.zendal.customitems.configuration.CustomItemsConfigurationData;
 import org.zendal.customitems.item.helper.CustomItemStackHelper;
 import org.zendal.customitems.item.manager.CustomItemStackManager;
 
+import java.io.IOException;
+
 /**
  * This interface for control custom items
  */
@@ -17,7 +19,13 @@ public interface CustomItemsApi {
 
     CustomItemStackHelper getCustomItemStackHelper();
 
-    void setConfigurationData(CustomItemsConfigurationData configurationData);
+    /**
+     * Setup configuration of CustomItems
+     *
+     * @param configurationData instance of configuration
+     * @throws IOException When can't calculate hash of texture pack
+     */
+    void setConfigurationData(CustomItemsConfigurationData configurationData) throws IOException;
 
     @Nullable
     CustomItemsConfiguration getConfiguration();
