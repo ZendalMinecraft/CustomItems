@@ -13,9 +13,9 @@ import org.zendal.customitems.item.storage.CustomItemStackStorage;
 import org.zendal.customitems.item.storage.HashMapCustomItemStackStorage;
 import org.zendal.customitems.listener.PlayerListener;
 import org.zendal.customitems.listener.ResourcePackListener;
-import org.zendal.customitems.listener.TestListener;
 import org.zendal.customitems.reflection.ReflectionHelper;
 import org.zendal.customitems.reflection.ReflectionHelperImpl;
+import org.zendal.customitems.test.TestListener;
 
 import java.io.IOException;
 import java.util.logging.Logger;
