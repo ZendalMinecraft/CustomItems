@@ -6,7 +6,7 @@ plugins {
     id 'maven-publish'
 }
 group = 'org.zendal'
-version = '0.0.1-beta'
+version = '0.5-beta'
 
 sourceCompatibility = '11'
 targetCompatibility = '11'
