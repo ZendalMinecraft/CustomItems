@@ -10,5 +10,20 @@ public class ServiceItemStack extends AbstractCustomItemStack {
 
     public ServiceItemStack(ItemStack itemStack) {
         super(itemStack);
+
+        if (!super.getNbtProvider().hasKey("attackMutation")) {
+            super.getNbtProvider().setDouble("attackMutation", 0.5d);
+        }
+
+        itemStack.setItemMeta(getNbtProvider().getItemStack().getItemMeta());
+    }
+
+    public double getAttackMutation() {
+        return super.getNbtProvider().getDouble("attackMutation");
+    }
+
+    public void setAttackMutation(double attack) {
+        super.getNbtProvider().setDouble("attackMutation", attack);
+        System.out.println("Attack = " + getAttackMutation());
     }
 }
