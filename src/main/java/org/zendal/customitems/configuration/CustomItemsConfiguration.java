@@ -13,5 +13,5 @@ public interface CustomItemsConfiguration {
      String getResourcePackUrl();
 
 
-     byte[] getResourcePackHash() throws UnsupportedEncodingException, NoSuchAlgorithmException;
+     byte[] getResourcePackHash();
 }

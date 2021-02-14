@@ -4,19 +4,16 @@ import lombok.SneakyThrows;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 /**
  * Simple implement of configuration
  */
 public class CustomItemsConfigurationImpl implements CustomItemsConfiguration {
 
-    private final Logger logger;
     private final CustomItemsConfigurationData customItemsConfigurationData;
     private final byte[] hash;
 
-    public CustomItemsConfigurationImpl(Logger logger, CustomItemsConfigurationData configurationData) throws IOException {
-        this.logger = logger;
+    public CustomItemsConfigurationImpl(CustomItemsConfigurationData configurationData) throws IOException {
         this.customItemsConfigurationData = configurationData;
         this.hash = encrypt(this.loadFile());
     }

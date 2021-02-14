@@ -62,7 +62,12 @@ public final class CustomItems extends JavaPlugin {
                 if (configuration != null) {
                     throw new IllegalStateException("Configuration already defined");
                 }
-                this.configuration = new CustomItemsConfigurationImpl(logger, configurationData);
+                this.configuration = new CustomItemsConfigurationImpl(configurationData);
+                StringBuilder stringBuilder = new StringBuilder();
+                for (byte b : this.configuration.getResourcePackHash()) {
+                    stringBuilder.append(String.format("%02X", b));
+                }
+                logger.info("Calculate hash for texture pack: " + stringBuilder.toString());
             }
 
             @Nullable
