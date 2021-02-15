@@ -37,10 +37,10 @@ public class CustomItemStackManagerImpl implements CustomItemStackManager {
     }
 
     @Override
-    public void scanPackagesForCustomItemStack(String... packages) {
+    public void scanPackagesForCustomItemStack(ClassLoader classLoader, String... packages) {
         logger.info("[CustomItemManager] Start scanning packages: " + Arrays.toString(packages));
         for (String onePackage : packages) {
-            var classes = reflectionHelper.getAllClassesWithAnnotation(onePackage, CustomItem.class);
+            var classes = reflectionHelper.getAllClassesWithAnnotation(classLoader, onePackage, CustomItem.class);
 
             classes.forEach(clazz -> {
                 var annotation = clazz.getAnnotation(CustomItem.class);
@@ -90,6 +90,7 @@ public class CustomItemStackManagerImpl implements CustomItemStackManager {
                 return tryFindDefaultConstructorCustomItem(clazz, itemStack);
             }
         });
+        logger.info("[CustomItemManager] Successful loaded item, with default factory : " + clazz);
     }
 
     @Override
@@ -100,6 +101,7 @@ public class CustomItemStackManagerImpl implements CustomItemStackManager {
                     " Please select defaultFactory = false in CustomItem annotation");
         }
         this.customItemStackStorage.registerCustomItemStack(annotation.type(), annotation.customModelData(), factory);
+        logger.info("[CustomItemManager] Successful loaded item, with custom factory: " + clazz);
     }
 
 

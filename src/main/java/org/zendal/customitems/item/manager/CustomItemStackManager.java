@@ -17,7 +17,7 @@ public interface CustomItemStackManager {
      * @param packages array of packages prefix
      * @see org.zendal.customitems.item.annotation.CustomItem
      */
-    void scanPackagesForCustomItemStack(String... packages);
+    void scanPackagesForCustomItemStack(ClassLoader classLoader, String... packages);
 
 
     /**

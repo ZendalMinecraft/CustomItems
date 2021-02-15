@@ -5,6 +5,6 @@ import java.util.Collection;
 
 public interface ReflectionHelper {
 
-        Collection<Class<?>> getAllClassesWithAnnotation(String prefixPackage, Class<? extends Annotation> annotation);
+        Collection<Class<?>> getAllClassesWithAnnotation(ClassLoader classLoader, String prefixPackage, Class<? extends Annotation> annotation);
 
 }
