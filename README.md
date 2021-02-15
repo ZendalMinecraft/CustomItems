@@ -32,7 +32,7 @@ And inject your CustomItems (Main class your JavaPlugin):
 ```java
 package domain.yourname.groupid;
 
-public final class Test extends JavaPlugin {
+public final class SimpleJavaPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         CustomItems plugin = (CustomItems) this.getServer().getPluginManager().getPlugin("CustomItems");
@@ -61,6 +61,7 @@ public final class Test extends JavaPlugin {
             //Handle that, when can't calculate hash of ResourcePack
         }
     }
+    //etc...
 }
 ```
 
