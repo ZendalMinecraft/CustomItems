@@ -23,9 +23,9 @@ public interface CustomItemStackManager {
     /**
      * Register CustomItemStack with default factory
      *
-     * @param clazz target CustomItemStack class
+     * @param classes target CustomItemStack class
      */
-    void registerCustomItemStack(Class<? extends AbstractCustomItemStack> clazz);
+    void registerCustomItemStack(Class<? extends AbstractCustomItemStack> ... classes);
 
     /**
      * Register CustomItemStack with custom factory

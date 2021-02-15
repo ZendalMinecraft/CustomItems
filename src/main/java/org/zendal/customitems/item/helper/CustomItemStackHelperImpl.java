@@ -1,6 +1,7 @@
 package org.zendal.customitems.item.helper;
 
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.zendal.customitems.item.AbstractCustomItemStack;
 import org.zendal.customitems.item.annotation.CustomItem;
 import org.zendal.customitems.item.storage.CustomItemStackStorage;
@@ -14,12 +15,20 @@ public class CustomItemStackHelperImpl implements CustomItemStackHelper {
     }
 
     @Override
-    public boolean isCustomItemStack(ItemStack itemStack) {
-        return false;
+    public boolean isCustomItemStack(@NotNull ItemStack itemStack) {
+        if (!itemStack.hasItemMeta()) {
+            return false;
+        }
+        var meta = itemStack.getItemMeta();
+        if (meta == null || !meta.hasCustomModelData()) {
+            return false;
+        }
+
+        return customItemStackStorage.getCustomItemStackFactory(itemStack.getType(), meta.getCustomModelData()) != null;
     }
 
     @Override
-    public <T extends AbstractCustomItemStack> T buildItem(Class<? extends T> customItemStackClass) {
+    public <T extends AbstractCustomItemStack> T buildItem(Class<? extends AbstractCustomItemStack> customItemStackClass) {
         var annotation = customItemStackClass.getAnnotation(CustomItem.class);
         var factory = customItemStackStorage.getCustomItemStackFactory(annotation.type(), annotation.customModelData());
         var itemStack = new ItemStack(annotation.type());

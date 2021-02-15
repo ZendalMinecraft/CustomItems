@@ -1,5 +1,6 @@
 package org.zendal.customitems.listener;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -19,7 +20,6 @@ public final class ListenerUtils {
             if (customItemStack != null) {
                 return new CustomItemProxy(item, customItemStack);
             }
-            System.out.println("Found custom item without registry: " + item.getItemStack().toString());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -38,6 +38,7 @@ public final class ListenerUtils {
         if (customItemStackFactory != null) {
             return customItemStackFactory.build(itemStack);
         }
+        Bukkit.getLogger().warning("Found custom item without registry: " + itemStack.toString());
         return null;
     }
 }

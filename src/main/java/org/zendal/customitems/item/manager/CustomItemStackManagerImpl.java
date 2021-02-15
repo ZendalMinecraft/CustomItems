@@ -78,19 +78,21 @@ public class CustomItemStackManagerImpl implements CustomItemStackManager {
     }
 
     @Override
-    public void registerCustomItemStack(Class<? extends AbstractCustomItemStack> clazz) {
-        var annotation = clazz.getAnnotation(CustomItem.class);
-        if (!annotation.defaultFactory()) {
-            throw new RuntimeException("You can't use default factory for this type Item: " + clazz + ";" +
-                    " Please select defaultFactory = true in CustomItem annotation");
-        }
-        this.customItemStackStorage.registerCustomItemStack(annotation.type(), annotation.customModelData(), new CustomItemStackFactory() {
-            @Override
-            public AbstractCustomItemStack build(ItemStack itemStack) {
-                return tryFindDefaultConstructorCustomItem(clazz, itemStack);
+    public void registerCustomItemStack(Class<? extends AbstractCustomItemStack>... classes) {
+        for (Class<? extends AbstractCustomItemStack> clazz : classes) {
+            var annotation = clazz.getAnnotation(CustomItem.class);
+            if (!annotation.defaultFactory()) {
+                throw new RuntimeException("You can't use default factory for this type Item: " + clazz + ";" +
+                        " Please select defaultFactory = true in CustomItem annotation");
             }
-        });
-        logger.info("[CustomItemManager] Successful loaded item, with default factory : " + clazz);
+            this.customItemStackStorage.registerCustomItemStack(annotation.type(), annotation.customModelData(), new CustomItemStackFactory() {
+                @Override
+                public AbstractCustomItemStack build(ItemStack itemStack) {
+                    return tryFindDefaultConstructorCustomItem(clazz, itemStack);
+                }
+            });
+            logger.info("[CustomItemManager] Successful loaded item, with default factory : " + clazz);
+        }
     }
 
     @Override
