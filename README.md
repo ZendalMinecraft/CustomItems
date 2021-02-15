@@ -68,7 +68,7 @@ public final class Test extends JavaPlugin {
 
 | Class name                                   | Description                                                                                                                                                                   |
 |----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| EntityDamageByPlayerWithCustomItemStackEvent | Invoke when Player Damage another entity with CustomItemStack                                                                                                                 |
-| EntityPickupCustomItemEvent                  | Invoke when Entity pickup CustomItemStack                                                                                                                                     |
-| PlayerClickOnCustomItemStackInInventoryEvent | Invoke when Player click on CustomItemStack in Inventory. Watch out don't use this event for handle players with creative mode, which clicking at PlayerInventory (dupe bug)! |
-| PlayerDropCustomItemEvent                    | Invoke when drop CustomItemStack                                                                                                                                              |
+| EntityDamageByPlayerWithCustomItemStackEvent | Invoked when Player Damage another entity with CustomItemStack                                                                                                                 |
+| EntityPickupCustomItemEvent                  | Invoked when Entity pickup CustomItemStack                                                                                                                                     |
+| PlayerClickOnCustomItemStackInInventoryEvent | Invoked when Player click on CustomItemStack in Inventory. Watch out don't use this event for handle players with creative mode, which clicking at PlayerInventory (dupe bug)! |
+| PlayerDropCustomItemEvent                    | Invoked when drop CustomItemStack                                                                                                                                              |
