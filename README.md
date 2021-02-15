@@ -10,6 +10,9 @@ Import into your plugin one dependency:
     compile 'org.zendal:customitems:1.0'
 ```
 
+Optional dependencies for plugin:
+ - [NBTAPI](https://github.com/tr7zw/Item-NBT-API) - if you want to change NBT tags into your CustomItems
+
 Create CustomItem class:
 
 ```java
