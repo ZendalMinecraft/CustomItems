@@ -1,17 +1,28 @@
 package org.zendal.customitems.configuration;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-
 /**
  * Interface of configuration of plugin
  */
 public interface CustomItemsConfiguration {
 
-     boolean resourcePackRequired();
+    /**
+     * Get flag about resource pack is required or not
+     *
+     * @return flag about resource pack is required or not
+     */
+    boolean resourcePackRequired();
 
-     String getResourcePackUrl();
+    /**
+     * Get resource pack URL
+     *
+     * @return resource pack URL
+     */
+    String getResourcePackUrl();
 
-
-     byte[] getResourcePackHash();
+    /**
+     * Get hash (SHA-1) of resource pack
+     *
+     * @return hash of resource pack
+     */
+    byte[] getResourcePackHash();
 }

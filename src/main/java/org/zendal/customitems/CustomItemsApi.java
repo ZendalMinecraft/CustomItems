@@ -23,9 +23,10 @@ public interface CustomItemsApi {
      * Setup configuration of CustomItems
      *
      * @param configurationData instance of configuration
-     * @throws IOException When can't calculate hash of texture pack
+     * @throws IOException           When can't calculate hash of texture pack
+     * @throws IllegalStateException When configuration data already define
      */
-    void setConfigurationData(CustomItemsConfigurationData configurationData) throws IOException;
+    void setConfigurationData(CustomItemsConfigurationData configurationData) throws IllegalStateException, IOException;
 
     @Nullable
     CustomItemsConfiguration getConfiguration();

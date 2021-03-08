@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import org.zendal.customitems.configuration.CustomItemsConfiguration;
 import org.zendal.customitems.configuration.CustomItemsConfigurationData;
 import org.zendal.customitems.configuration.CustomItemsConfigurationImpl;
+import org.zendal.customitems.configuration.PluginConfiguration;
 import org.zendal.customitems.item.helper.CustomItemStackHelper;
 import org.zendal.customitems.item.helper.CustomItemStackHelperImpl;
 import org.zendal.customitems.item.manager.CustomItemStackManager;
@@ -29,6 +30,8 @@ public final class CustomItems extends JavaPlugin {
         var reflection = new GoogleClassPathReflectionHelper();
         var storage = new HashMapCustomItemStackStorage();
         this.api = this.buildCustomItemsApi(this.getLogger(), reflection, storage);
+
+        new PluginConfiguration(this);
 
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this.api.getCustomItemStackManager()), this);
         this.getServer().getPluginManager().registerEvents(new ResourcePackListener(this, this.api), this);
@@ -54,7 +57,7 @@ public final class CustomItems extends JavaPlugin {
             }
 
             @Override
-            public void setConfigurationData(CustomItemsConfigurationData configurationData) throws IOException {
+            public void setConfigurationData(CustomItemsConfigurationData configurationData) throws IllegalStateException, IOException {
                 if (configuration != null) {
                     throw new IllegalStateException("Configuration already defined");
                 }
