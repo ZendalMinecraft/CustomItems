@@ -28,7 +28,7 @@ public class CustomItemStackHelperImpl implements CustomItemStackHelper {
     }
 
     @Override
-    public <T extends AbstractCustomItemStack> T buildItem(Class<? extends AbstractCustomItemStack> customItemStackClass) {
+    public <T extends AbstractCustomItemStack> T buildItem(Class<? extends T> customItemStackClass) {
         var annotation = customItemStackClass.getAnnotation(CustomItem.class);
         var factory = customItemStackStorage.getCustomItemStackFactory(annotation.type(), annotation.customModelData());
         var itemStack = new ItemStack(annotation.type());

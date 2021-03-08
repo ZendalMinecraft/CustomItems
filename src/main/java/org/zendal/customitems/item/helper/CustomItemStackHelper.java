@@ -24,5 +24,5 @@ public interface CustomItemStackHelper {
      * @param <T>                  your CustomItemStack
      * @return your CustomItemStack
      */
-    <T extends AbstractCustomItemStack> T buildItem(Class<? extends AbstractCustomItemStack> customItemStackClass);
+    <T extends AbstractCustomItemStack> T buildItem(Class<? extends T> customItemStackClass);
 }
