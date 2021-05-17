@@ -19,7 +19,7 @@ Create CustomItem class:
 ```java
 package domain.yourname.groupid.items;
 
-@CustomItem(type = Material.DIAMON_SWORD, customData = 12)
+@CustomItem(type = Material.DIAMON_SWORD, customModelData = 12)
 public class MyFirstItem extends AbstractCustomItemStack {
     public ServiceItemStack(ItemStack itemStack) {
         super(itemStack);
