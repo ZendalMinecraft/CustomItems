@@ -36,9 +36,10 @@ public final class ListenerUtils {
         var customItemStackFactory = customItemStackManager.getCustomItemStackFactory(itemStack.getType(), itemStack.getItemMeta().getCustomModelData());
 
         if (customItemStackFactory != null) {
-            return customItemStackFactory.build(itemStack);
+            //noinspection unchecked
+            return customItemStackFactory.build(customItemStackManager, itemStack);
         }
-        Bukkit.getLogger().warning("Found custom item without registry: " + itemStack.toString());
+        Bukkit.getLogger().warning("Found custom item without registry: " + itemStack);
         return null;
     }
 }

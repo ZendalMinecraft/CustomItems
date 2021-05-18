@@ -15,8 +15,8 @@ import org.zendal.customitems.item.storage.CustomItemStackStorage;
 import org.zendal.customitems.item.storage.HashMapCustomItemStackStorage;
 import org.zendal.customitems.listener.PlayerListener;
 import org.zendal.customitems.listener.ResourcePackListener;
-import org.zendal.customitems.reflection.ReflectionHelper;
 import org.zendal.customitems.reflection.GoogleClassPathReflectionHelper;
+import org.zendal.customitems.reflection.ReflectionHelper;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -42,7 +42,7 @@ public final class CustomItems extends JavaPlugin {
         return new CustomItemsApi() {
             private final CustomItemStackManager customItemStackManager = new CustomItemStackManagerImpl(logger, reflection, storage);
 
-            private final CustomItemStackHelper customItemStackHelper = new CustomItemStackHelperImpl(storage);
+            private final CustomItemStackHelper customItemStackHelper = new CustomItemStackHelperImpl(customItemStackManager, storage);
 
             private CustomItemsConfiguration configuration;
 

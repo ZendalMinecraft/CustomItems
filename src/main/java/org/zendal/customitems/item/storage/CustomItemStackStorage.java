@@ -3,6 +3,7 @@ package org.zendal.customitems.item.storage;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.zendal.customitems.item.AbstractCustomItemStack;
 import org.zendal.customitems.item.CustomItemStackFactory;
 
 /**
@@ -17,5 +18,19 @@ public interface CustomItemStackStorage {
     CustomItemStackFactory getCustomItemStackFactory(@NotNull Material type, @NotNull Integer customModelData);
 
 
-    void registerCustomItemStack(@NotNull Material type, @NotNull Integer customModelData, @NotNull CustomItemStackFactory factory);
+    /**
+     * Register
+     *
+     * @param classCustomItemStack
+     * @param type
+     * @param customModelData
+     * @param factory
+     */
+    void registerCustomItemStack(Class<? extends AbstractCustomItemStack> classCustomItemStack,
+                                 @NotNull Material type,
+                                 @NotNull Integer customModelData,
+                                 @NotNull CustomItemStackFactory factory);
+
+
+    @Nullable Class<? extends AbstractCustomItemStack> getCustomItemStackClass(@NotNull Material type, @NotNull Integer customModelData);
 }

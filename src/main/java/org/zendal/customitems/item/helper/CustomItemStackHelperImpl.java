@@ -4,13 +4,17 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.zendal.customitems.item.AbstractCustomItemStack;
 import org.zendal.customitems.item.annotation.CustomItem;
+import org.zendal.customitems.item.manager.CustomItemStackManager;
 import org.zendal.customitems.item.storage.CustomItemStackStorage;
 
 public class CustomItemStackHelperImpl implements CustomItemStackHelper {
 
+    private final CustomItemStackManager customItemStackManager;
+
     private final CustomItemStackStorage customItemStackStorage;
 
-    public CustomItemStackHelperImpl(CustomItemStackStorage customItemStackStorage) {
+    public CustomItemStackHelperImpl(CustomItemStackManager customItemStackManager, CustomItemStackStorage customItemStackStorage) {
+        this.customItemStackManager = customItemStackManager;
         this.customItemStackStorage = customItemStackStorage;
     }
 
@@ -39,6 +43,6 @@ public class CustomItemStackHelperImpl implements CustomItemStackHelper {
         meta.setCustomModelData(annotation.customModelData());
         itemStack.setItemMeta(meta);
         //noinspection unchecked
-        return (T) factory.build(itemStack);
+        return (T) factory.build(customItemStackManager, itemStack);
     }
 }

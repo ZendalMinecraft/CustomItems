@@ -50,10 +50,11 @@ public class CustomItemStackManagerImpl implements CustomItemStackManager {
                 if (!clazz.getSuperclass().isAssignableFrom(AbstractCustomItemStack.class)) {
                     throw new IllegalStateException("You custom item must be extends from AbstractCustomItemStack");
                 }
-                customItemStackStorage.registerCustomItemStack(annotation.type(), annotation.customModelData(), new CustomItemStackFactory() {
+                //noinspection unchecked
+                customItemStackStorage.registerCustomItemStack((Class<? extends AbstractCustomItemStack>) clazz, annotation.type(), annotation.customModelData(), new CustomItemStackFactory() {
                     @SneakyThrows
                     @Override
-                    public AbstractCustomItemStack build(ItemStack itemStack) {
+                    public AbstractCustomItemStack build(CustomItemStackManager targetClazz, ItemStack itemStack) {
                         //noinspection unchecked
                         return tryFindDefaultConstructorCustomItem((Class<? extends AbstractCustomItemStack>) clazz, itemStack);
                     }
@@ -63,6 +64,13 @@ public class CustomItemStackManagerImpl implements CustomItemStackManager {
         }
     }
 
+    /**
+     * Try create instance of CustomItemStack
+     *
+     * @param clazz     target class
+     * @param itemStack source data
+     * @return instance of CustomItemStack
+     */
     private AbstractCustomItemStack tryFindDefaultConstructorCustomItem(Class<? extends AbstractCustomItemStack> clazz, ItemStack itemStack) {
         try {
             for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
@@ -85,9 +93,9 @@ public class CustomItemStackManagerImpl implements CustomItemStackManager {
                 throw new RuntimeException("You can't use default factory for this type Item: " + clazz + ";" +
                         " Please select defaultFactory = true in CustomItem annotation");
             }
-            this.customItemStackStorage.registerCustomItemStack(annotation.type(), annotation.customModelData(), new CustomItemStackFactory() {
+            this.customItemStackStorage.registerCustomItemStack(clazz, annotation.type(), annotation.customModelData(), new CustomItemStackFactory() {
                 @Override
-                public AbstractCustomItemStack build(ItemStack itemStack) {
+                public AbstractCustomItemStack build(CustomItemStackManager customItemStackManager, ItemStack itemStack) {
                     return tryFindDefaultConstructorCustomItem(clazz, itemStack);
                 }
             });
@@ -102,7 +110,7 @@ public class CustomItemStackManagerImpl implements CustomItemStackManager {
             throw new RuntimeException("You can't use custom factory for this type Item: " + clazz + ";" +
                     " Please select defaultFactory = false in CustomItem annotation");
         }
-        this.customItemStackStorage.registerCustomItemStack(annotation.type(), annotation.customModelData(), factory);
+        this.customItemStackStorage.registerCustomItemStack(clazz, annotation.type(), annotation.customModelData(), factory);
         logger.info("[CustomItemManager] Successful loaded item, with custom factory: " + clazz);
     }
 
@@ -111,5 +119,16 @@ public class CustomItemStackManagerImpl implements CustomItemStackManager {
     @Override
     public CustomItemStackFactory getCustomItemStackFactory(Material type, Integer customModelData) {
         return this.customItemStackStorage.getCustomItemStackFactory(type, customModelData);
+    }
+
+
+    @Override
+    public @Nullable Class<? extends AbstractCustomItemStack> getCustomItemStackClass(ItemStack itemStack) {
+
+        if (!itemStack.hasItemMeta() || itemStack.getItemMeta() != null && !itemStack.getItemMeta().hasCustomModelData()) {
+            return null;
+        }
+
+        return this.customItemStackStorage.getCustomItemStackClass(itemStack.getType(), itemStack.getItemMeta().getCustomModelData());
     }
 }

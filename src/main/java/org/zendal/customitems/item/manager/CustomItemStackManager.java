@@ -1,6 +1,7 @@
 package org.zendal.customitems.item.manager;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.zendal.customitems.item.AbstractCustomItemStack;
 import org.zendal.customitems.item.CustomItemStackFactory;
@@ -25,7 +26,7 @@ public interface CustomItemStackManager {
      *
      * @param classes target CustomItemStack class
      */
-    void registerCustomItemStack(Class<? extends AbstractCustomItemStack> ... classes);
+    void registerCustomItemStack(Class<? extends AbstractCustomItemStack>... classes);
 
     /**
      * Register CustomItemStack with custom factory
@@ -43,4 +44,13 @@ public interface CustomItemStackManager {
      * @return factory if exists
      */
     @Nullable CustomItemStackFactory getCustomItemStackFactory(Material type, Integer customModelData);
+
+
+    /**
+     * Get custom item stack class by ItemStack
+     *
+     * @param itemStack source ItemStack
+     * @return class of CustomItemStack
+     */
+    @Nullable Class<? extends AbstractCustomItemStack> getCustomItemStackClass(ItemStack itemStack);
 }
