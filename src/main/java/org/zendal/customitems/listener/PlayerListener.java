@@ -1,6 +1,7 @@
 package org.zendal.customitems.listener;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -9,10 +10,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.zendal.customitems.event.EntityDamageByPlayerWithCustomItemStackEvent;
-import org.zendal.customitems.event.EntityPickupCustomItemEvent;
-import org.zendal.customitems.event.PlayerClickOnCustomItemStackInInventoryEvent;
-import org.zendal.customitems.event.PlayerDropCustomItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.zendal.customitems.event.*;
 import org.zendal.customitems.item.manager.CustomItemStackManager;
 
 public class PlayerListener implements Listener {
@@ -67,6 +66,21 @@ public class PlayerListener implements Listener {
             if (customItemStack != null) {
                 Bukkit.getPluginManager().callEvent(new EntityDamageByPlayerWithCustomItemStackEvent(e, customItemStack));
             }
+        }
+    }
+
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPlayerInteractWithCustomItemStack(PlayerInteractEvent e) {
+        var itemStack = e.getItem();
+
+        if (itemStack == null){
+            return;
+        }
+
+        var customItemStack = ListenerUtils.getCustomItemStackByItemStack(this.customItemStackManager, itemStack);
+        if (customItemStack != null) {
+            Bukkit.getPluginManager().callEvent(new PlayerInteractWithCustomItemStackEvent(e, customItemStack));
         }
     }
 }
