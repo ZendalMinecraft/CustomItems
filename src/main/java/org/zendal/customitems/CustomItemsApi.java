@@ -17,6 +17,11 @@ public interface CustomItemsApi {
     CustomItemStackManager getCustomItemStackManager();
 
 
+    /**
+     * Get helper for work with CustomItemStack
+     *
+     * @return helper
+     */
     CustomItemStackHelper getCustomItemStackHelper();
 
     /**
