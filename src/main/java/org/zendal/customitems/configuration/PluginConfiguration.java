@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * Configuration class
  */
-public class PluginConfiguration {
+public final class PluginConfiguration {
 
     /**
      * Constructor

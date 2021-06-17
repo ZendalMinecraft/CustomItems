@@ -8,11 +8,24 @@ import java.io.IOException;
 /**
  * Simple implement of configuration
  */
-public class CustomItemsConfigurationImpl implements CustomItemsConfiguration {
+public final class CustomItemsConfigurationImpl implements CustomItemsConfiguration {
 
+    /**
+     * Configuration data
+     */
     private final CustomItemsConfigurationData customItemsConfigurationData;
+
+    /**
+     * Hash of texture pack
+     */
     private final byte[] hash;
 
+    /**
+     * Constructor.
+     *
+     * @param configurationData configuration data
+     * @throws IOException when can't load texture pack
+     */
     public CustomItemsConfigurationImpl(CustomItemsConfigurationData configurationData) throws IOException {
         this.customItemsConfigurationData = configurationData;
         this.hash = encrypt(this.loadFile());
@@ -32,6 +45,12 @@ public class CustomItemsConfigurationImpl implements CustomItemsConfiguration {
         return digest.digest();
     }
 
+    /**
+     * Load texture pack
+     *
+     * @return stream of texture pack
+     * @throws IOException when can't load texture pack
+     */
     private BufferedInputStream loadFile() throws IOException {
         return new BufferedInputStream(customItemsConfigurationData.getResourcePackUrl().openStream());
     }

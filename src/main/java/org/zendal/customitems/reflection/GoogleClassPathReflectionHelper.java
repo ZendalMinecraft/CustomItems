@@ -8,7 +8,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Implementation based of GoogleClassPath
+ */
 public class GoogleClassPathReflectionHelper implements ReflectionHelper {
+
     @SneakyThrows
     @Override
     public Collection<Class<?>> getAllClassesWithAnnotation(ClassLoader classLoader, String prefixPackage, Class<? extends Annotation> annotation) {
