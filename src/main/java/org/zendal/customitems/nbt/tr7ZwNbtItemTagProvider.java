@@ -8,8 +8,8 @@ import java.util.Collection;
 /**
  * Implementation based on tr7Zw library
  *
- * @link https://github.com/tr7zw/Item-NBT-API
- * @link https://github.com/tr7zw/Item-NBT-API/wiki/Using-the-NBT-API
+ * @see <a href="https://github.com/tr7zw/Item-NBT-API">GitHub Page of NBT API</a>
+ * @see <a href="https://github.com/tr7zw/Item-NBT-API/wiki/Using-the-NBT-API">GitHub doc page of NBT API</a>
  */
 public final class tr7ZwNbtItemTagProvider implements NbtItemTagProvider {
 

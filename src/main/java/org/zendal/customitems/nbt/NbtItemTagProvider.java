@@ -1,14 +1,13 @@
 package org.zendal.customitems.nbt;
 
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Collection;
 
 /**
  * Interface for manipulation with NBT tags of ItemStack
  *
- * @link https://minecraft.gamepedia.com/Tutorials/Command_NBT_tags
+ * @see <a href="https://minecraft.gamepedia.com/Tutorials/Command_NBT_tags">About NBT tags</a>
  * @see org.bukkit.inventory.ItemStack
  */
 public interface NbtItemTagProvider {
