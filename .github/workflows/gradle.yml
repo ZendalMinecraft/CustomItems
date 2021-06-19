@@ -23,10 +23,8 @@ jobs:
         distribution: 'adopt'
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
-    - name: Puslishing
-      run: ./gradlew publish
+    - name: Test and Puslishing
+      run: ./gradlew test publish
     env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_ACTOR: ${{ github.actor }}
