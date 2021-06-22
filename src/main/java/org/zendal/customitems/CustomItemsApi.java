@@ -14,6 +14,11 @@ import java.io.IOException;
 public interface CustomItemsApi {
 
 
+    /**
+     * Get manager of CustomItemStack
+     *
+     * @return manager
+     */
     CustomItemStackManager getCustomItemStackManager();
 
 
@@ -33,6 +38,11 @@ public interface CustomItemsApi {
      */
     void setConfigurationData(CustomItemsConfigurationData configurationData) throws IllegalStateException, IOException;
 
+    /**
+     * Get current configuration of plugin
+     *
+     * @return configuration
+     */
     @Nullable
     CustomItemsConfiguration getConfiguration();
 }

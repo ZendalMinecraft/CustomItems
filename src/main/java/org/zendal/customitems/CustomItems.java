@@ -23,20 +23,25 @@ import java.util.logging.Logger;
 
 public final class CustomItems extends JavaPlugin {
 
+    /**
+     * Instance of API
+     */
     private CustomItemsApi api;
 
     @Override
-    public void onEnable() {
+    public void onLoad() {
         var reflection = new GoogleClassPathReflectionHelper();
         var storage = new HashMapCustomItemStackStorage();
         this.api = this.buildCustomItemsApi(this.getLogger(), reflection, storage);
 
         new PluginConfiguration(this);
+    }
 
+    @Override
+    public void onEnable() {
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this.api.getCustomItemStackManager()), this);
         this.getServer().getPluginManager().registerEvents(new ResourcePackListener(this, this.api), this);
     }
-
 
     private CustomItemsApi buildCustomItemsApi(Logger logger, ReflectionHelper reflection, CustomItemStackStorage storage) {
         return new CustomItemsApi() {
