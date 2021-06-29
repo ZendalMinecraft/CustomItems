@@ -47,7 +47,7 @@ public class CustomItemStackManagerImpl implements CustomItemStackManager {
                 if (!annotation.defaultFactory()) {
                     return;
                 }
-                if (!clazz.getSuperclass().isAssignableFrom(AbstractCustomItemStack.class)) {
+                if (!AbstractCustomItemStack.class.isAssignableFrom(clazz)) {
                     throw new IllegalStateException("You custom item must be extends from AbstractCustomItemStack");
                 }
                 //noinspection unchecked
