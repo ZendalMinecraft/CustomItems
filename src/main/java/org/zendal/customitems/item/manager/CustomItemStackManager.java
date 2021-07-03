@@ -6,6 +6,8 @@ import org.jetbrains.annotations.Nullable;
 import org.zendal.customitems.item.AbstractCustomItemStack;
 import org.zendal.customitems.item.CustomItemStackFactory;
 
+import java.util.List;
+
 /**
  * Interface of manager for register CustomItemStack or find factories
  */
@@ -15,7 +17,8 @@ public interface CustomItemStackManager {
     /**
      * Scan packages and find classes with Annotation @CustomItems and registered it
      *
-     * @param packages array of packages prefix
+     * @param classLoader loader of classes your plugin
+     * @param packages    array of packages prefix (scope)
      * @see org.zendal.customitems.item.annotation.CustomItem
      */
     void scanPackagesForCustomItemStack(ClassLoader classLoader, String... packages);
@@ -53,4 +56,14 @@ public interface CustomItemStackManager {
      * @return class of CustomItemStack
      */
     @Nullable Class<? extends AbstractCustomItemStack> getCustomItemStackClass(ItemStack itemStack);
+
+
+    /**
+     * Get list of classes AbstractCustomItemStack which annotated with none default factory
+     *
+     * @param classLoader loader of classes your plugin
+     * @param packages    array of packages prefix (scope)
+     * @return List of classes
+     */
+    List<Class<? extends AbstractCustomItemStack>> getCustomItemsStackListClassWithNotDefaultFactory(ClassLoader classLoader, String... packages);
 }

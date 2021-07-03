@@ -11,7 +11,9 @@ import org.zendal.customitems.item.storage.CustomItemStackStorage;
 import org.zendal.customitems.reflection.ReflectionHelper;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -130,5 +132,29 @@ public class CustomItemStackManagerImpl implements CustomItemStackManager {
         }
 
         return this.customItemStackStorage.getCustomItemStackClass(itemStack.getType(), itemStack.getItemMeta().getCustomModelData());
+    }
+
+
+    @Override
+    public List<Class<? extends AbstractCustomItemStack>> getCustomItemsStackListClassWithNotDefaultFactory(ClassLoader classLoader, String... packages) {
+        logger.info("[CustomItemManager] Start scanning packages: " + Arrays.toString(packages));
+        var result = new ArrayList<Class<? extends AbstractCustomItemStack>>();
+        for (String onePackage : packages) {
+            var classes = reflectionHelper.getAllClassesWithAnnotation(classLoader, onePackage, CustomItem.class);
+
+            classes.forEach(clazz -> {
+                var annotation = clazz.getAnnotation(CustomItem.class);
+                if (annotation.defaultFactory()) {
+                    return;
+                }
+                if (!AbstractCustomItemStack.class.isAssignableFrom(clazz)) {
+                    throw new IllegalStateException("You custom item must be extends from AbstractCustomItemStack");
+                }
+                logger.info("[CustomItemManager] Found class without at default factory: " + clazz);
+                //noinspection unchecked
+                result.add((Class<? extends AbstractCustomItemStack>) clazz);
+            });
+        }
+        return result;
     }
 }
