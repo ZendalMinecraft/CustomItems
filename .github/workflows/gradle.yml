@@ -27,13 +27,13 @@ jobs:
       run: ./gradlew test build publish
 
     - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          title: "${{ github.event.head_commit.message }}"
-          prerelease: false
-          files: |
-            ./build/libs/*.jar
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        title: "${{ github.event.head_commit.message }}"
+        prerelease: false
+        files: |
+          ./build/libs/*.jar
     env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_ACTOR: ${{ github.actor }}
