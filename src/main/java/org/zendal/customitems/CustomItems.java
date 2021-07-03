@@ -1,6 +1,8 @@
 package org.zendal.customitems;
 
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.java.JavaPluginLoader;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.zendal.customitems.configuration.CustomItemsConfiguration;
@@ -18,10 +20,22 @@ import org.zendal.customitems.listener.ResourcePackListener;
 import org.zendal.customitems.reflection.GoogleClassPathReflectionHelper;
 import org.zendal.customitems.reflection.ReflectionHelper;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
 public final class CustomItems extends JavaPlugin {
+
+
+    public CustomItems()
+    {
+        super();
+    }
+
+    protected CustomItems(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file)
+    {
+        super(loader, description, dataFolder, file);
+    }
 
     /**
      * Instance of API

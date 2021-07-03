@@ -5,7 +5,7 @@ plugins {
     id 'maven-publish'
 }
 group = 'org.zendal'
-version = '0.9-beta'
+version = '1.0'
 
 sourceCompatibility = '11'
 targetCompatibility = '11'
@@ -70,6 +70,12 @@ dependencies {
 
     testCompileOnly 'org.projectlombok:lombok:1.18.16'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+
+    testImplementation 'com.github.seeseemelk:MockBukkit-v1.16:1.0.0'
+    testCompileOnly 'org.jetbrains:annotations:16.0.2'
+    testImplementation(platform('org.junit:junit-bom:5.7.2'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
 }
 
 jar {
@@ -83,6 +89,10 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         filter ReplaceTokens, tokens: [version: version]
     }
+}
+
+test {
+    useJUnitPlatform()
 }
 
 
