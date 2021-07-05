@@ -7,7 +7,20 @@ The goal of this project, give developer easy tools for creation CustomItems and
 Import into your plugin one dependency:
 
 ```groovy
+repositories {
+ maven {
+        name = "CustomItemsRepository"
+        url = uri("https://maven.pkg.github.com/ZendalMinecraft/CustomItems")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+            password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
+}
+
+dependencies {
     compile 'org.zendal:customitems:1.0'
+}
 ```
 
 Optional dependencies for plugin:
