@@ -8,7 +8,7 @@ plugins {
 sourceCompatibility = '11'
 targetCompatibility = '11'
 
-java{
+java {
     withJavadocJar()
     withSourcesJar()
 }
@@ -31,7 +31,6 @@ publishing {
             // You can also directly set the URL if you don't want to publish snapshots.
             url = project.version.endsWith("SNAPSHOT") ? snapshotUrl : releaseUrl
 
-            // GRADLE_PROJECT_MAVEN_USERNAME and GRADLE_PROJECT_MAVEN_PASSWORD are the variables you defined in the previous section.
             def mavenUsername = System.getenv("JENKINS_USER")
             def mavenPassword = System.getenv("JENKINS_PASSWORD")
 
@@ -42,10 +41,11 @@ publishing {
         }
     }
     publications {
-        library(MavenPublication) {
-            from(components.java)
-            artifact sourcesJar
-            artifact javadocJar
+        mavenJava(MavenPublication) {
+            groupId = project.group
+            artifactId = "CustomItems"
+            version = project.version
+            from components.java
         }
     }
 }
