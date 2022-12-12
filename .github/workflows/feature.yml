@@ -23,3 +23,6 @@ jobs:
       uses: gradle/gradle-build-action@v2.3.3
       with:
         arguments: test publish
+      env:
+        JENKINS_USER: ${{ secrets.JENKINS_USER }}
+        JENKINS_PASSWORD: ${{ secrets.JENKINS_PASSWORD }}
