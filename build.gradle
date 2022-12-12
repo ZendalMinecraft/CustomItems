@@ -16,14 +16,14 @@ java {
 
 publishing {
     repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/ZendalMinecraft/CustomItems")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
-            }
-        }
+//        maven {
+//            name = "GitHubPackages"
+//            url = uri("https://maven.pkg.github.com/ZendalMinecraft/CustomItems")
+//            credentials {
+//                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+//                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+//            }
+//        }
         maven {
             def snapshotUrl = "https://repo.codemc.io/repository/maven-snapshots/"
             def releaseUrl = "https://repo.codemc.io/repository/maven-releases/"
@@ -31,12 +31,15 @@ publishing {
             // You can also directly set the URL if you don't want to publish snapshots.
             url = project.version.endsWith("SNAPSHOT") ? snapshotUrl : releaseUrl
 
-            def mavenUsername = System.getenv("JENKINS_USER")
-            def mavenPassword = System.getenv("JENKINS_PASSWORD")
+            // GRADLE_PROJECT_MAVEN_USERNAME and GRADLE_PROJECT_MAVEN_PASSWORD are the variables you defined in the previous section.
+            def mavenUsername = System.getenv("GRADLE_PROJECT_MAVEN_USERNAME") ? System.getenv("GRADLE_PROJECT_MAVEN_USERNAME") : null
+            def mavenPassword = System.getenv("GRADLE_PROJECT_MAVEN_PASSWORD") ? System.getenv("GRADLE_PROJECT_MAVEN_PASSWORD") : null
 
-            credentials {
-                username = mavenUsername
-                password = mavenPassword
+            if (mavenUsername != null && mavenPassword != null) {
+                credentials {
+                    username = mavenUsername
+                    password = mavenPassword
+                }
             }
         }
     }
@@ -110,5 +113,9 @@ tasks.register("moveToServerFolder") {
         print "Plugin location: " + pathToServer + "/plugins/" + project.name + "-" + version + ".jar"
         ant.move(file: buildDir.getAbsolutePath() + "/libs/" + project.name + "-" + version + ".jar", tofile: pathToServer + "/plugins/" + project.name + "-" + version + ".jar")
     }
+}
+
+if (System.getenv("GRADLE_PROJECT_MAVEN_USERNAME") != null) {
+    build.finalizedBy(publish)
 }
 
