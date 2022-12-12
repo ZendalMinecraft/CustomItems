@@ -22,11 +22,7 @@ jobs:
     - name: Build and publish
       uses: gradle/gradle-build-action@v2.3.3
       with:
-        arguments: build publish
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_ACTOR: ${{ github.actor }}
-
+        arguments: build
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
