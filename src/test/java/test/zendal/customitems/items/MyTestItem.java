@@ -13,14 +13,13 @@ public final class MyTestItem extends AbstractCustomItemStack {
     public MyTestItem(@NotNull ItemStack stack) throws IllegalArgumentException {
         super(stack);
 
-        var meta = this.getItemMeta();
-
-        meta.setDisplayName("TestItem");
-        meta.setLore(List.of(
-                "lore - 1",
-                "lore - 2"
-        ));
-
-        this.setItemMeta(meta);
+        this.updateItemMeta(itemMeta -> {
+            itemMeta.setDisplayName("TestItem");
+            itemMeta.setLore(List.of(
+                    "lore - 1",
+                    "lore - 2"
+            ));
+            return itemMeta;
+        });
     }
 }
