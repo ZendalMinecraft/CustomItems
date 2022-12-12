@@ -11,9 +11,9 @@ public final class MyTestItemWithCustomFactory extends AbstractCustomItemStack {
     public MyTestItemWithCustomFactory(@NotNull ItemStack stack) throws IllegalArgumentException {
         super(stack);
 
-        var meta = this.getItemMeta();
-
-        meta.setDisplayName("MyTestItemWithCustomFactory");
-        this.setItemMeta(meta);
+        this.updateItemMeta(itemMeta -> {
+            itemMeta.setDisplayName("MyTestItemWithCustomFactory");
+            return itemMeta;
+        });
     }
 }

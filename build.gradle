@@ -4,22 +4,14 @@ plugins {
     id 'java'
     id 'maven-publish'
 }
-group = 'org.zendal'
-version = '1.0'
 
 sourceCompatibility = '11'
 targetCompatibility = '11'
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
+java{
+    withJavadocJar()
+    withSourcesJar()
 }
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
 
 
 publishing {
@@ -30,6 +22,22 @@ publishing {
             credentials {
                 username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
                 password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+        maven {
+            def snapshotUrl = "https://repo.codemc.io/repository/maven-snapshots/"
+            def releaseUrl = "https://repo.codemc.io/repository/maven-releases/"
+
+            // You can also directly set the URL if you don't want to publish snapshots.
+            url = project.version.endsWith("SNAPSHOT") ? snapshotUrl : releaseUrl
+
+            // GRADLE_PROJECT_MAVEN_USERNAME and GRADLE_PROJECT_MAVEN_PASSWORD are the variables you defined in the previous section.
+            def mavenUsername = System.getenv("JENKINS_USER")
+            def mavenPassword = System.getenv("JENKINS_PASSWORD")
+
+            credentials {
+                username = mavenUsername
+                password = mavenPassword
             }
         }
     }

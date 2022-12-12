@@ -1,9 +1,13 @@
 package org.zendal.customitems.item;
 
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.zendal.customitems.nbt.NbtItemTagProvider;
 import org.zendal.customitems.nbt.NbtItemTagProviderFactory;
+
+import java.util.Objects;
+import java.util.function.Function;
 
 public class AbstractCustomItemStack extends ItemStack {
 
@@ -18,9 +22,19 @@ public class AbstractCustomItemStack extends ItemStack {
 
     public AbstractCustomItemStack(@NotNull ItemStack stack) throws IllegalArgumentException {
         super(stack);
-        if (!stack.hasItemMeta() || !stack.getItemMeta().hasCustomModelData()) {
+        if (!stack.hasItemMeta() || !Objects.requireNonNull(stack.getItemMeta()).hasCustomModelData()) {
             throw new RuntimeException("It's not a custom item");
         }
+    }
+
+    /**
+     * Update item meta via snippet.
+     *
+     * @param itemMetaUpdateFunction function which return an updated item meta.
+     */
+    protected void updateItemMeta(Function<ItemMeta, ItemMeta> itemMetaUpdateFunction) {
+        final var meta = this.getItemMeta();
+        this.setItemMeta(itemMetaUpdateFunction.apply(meta));
     }
 
     /**

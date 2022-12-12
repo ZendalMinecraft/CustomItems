@@ -6,8 +6,6 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -21,10 +19,13 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Test and Puslishing
-      run: ./gradlew test build publish
+    - name: Build and publish
+      uses: gradle/gradle-build-action@v2.3.3
+      with:
+        arguments: build publish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_ACTOR: ${{ github.actor }}
 
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
@@ -34,6 +35,3 @@ jobs:
         prerelease: false
         files: |
           ./build/libs/*.jar
-    env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITHUB_ACTOR: ${{ github.actor }}
