@@ -26,35 +26,31 @@ import java.util.logging.Logger;
 
 public final class CustomItems extends JavaPlugin {
 
-
-    public CustomItems()
-    {
-        super();
-    }
-
-    protected CustomItems(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file)
-    {
-        super(loader, description, dataFolder, file);
-    }
-
     /**
      * Instance of API
      */
-    private CustomItemsApi api;
+    private static CustomItemsApi api;
+
+    public CustomItems() {
+        super();
+    }
+
+    protected CustomItems(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
+        super(loader, description, dataFolder, file);
+    }
 
     @Override
     public void onLoad() {
         var reflection = new GoogleClassPathReflectionHelper();
         var storage = new HashMapCustomItemStackStorage();
-        this.api = this.buildCustomItemsApi(this.getLogger(), reflection, storage);
-
+        api = this.buildCustomItemsApi(this.getLogger(), reflection, storage);
         new PluginConfiguration(this);
     }
 
     @Override
     public void onEnable() {
-        this.getServer().getPluginManager().registerEvents(new PlayerListener(this.api.getCustomItemStackManager()), this);
-        this.getServer().getPluginManager().registerEvents(new ResourcePackListener(this, this.api), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerListener(api.getCustomItemStackManager()), this);
+        this.getServer().getPluginManager().registerEvents(new ResourcePackListener(this, api), this);
     }
 
     private CustomItemsApi buildCustomItemsApi(Logger logger, ReflectionHelper reflection, CustomItemStackStorage storage) {
@@ -103,11 +99,25 @@ public final class CustomItems extends JavaPlugin {
      */
     @NotNull
     public CustomItemsApi getCustomItemsApi() {
-        return this.api;
+        return api;
     }
 
     @Override
     public void onDisable() {
 
+    }
+
+    /**
+     * Get instance of API.
+     *
+     * @return api instance.
+     */
+    @NotNull
+    public static CustomItemsApi getApi() {
+        if (api == null) {
+            throw new IllegalStateException("Please specify CustomItems plugin as depend in your plugin.yml");
+        }
+
+        return api;
     }
 }
