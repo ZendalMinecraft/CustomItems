@@ -8,18 +8,14 @@ Import into your plugin one dependency:
 
 ```groovy
 repositories {
- maven {
-        name = "CustomItemsRepository"
-        url = uri("https://maven.pkg.github.com/ZendalMinecraft/CustomItems")
-        credentials {
-            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-            password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
-        }
+    maven {
+        name = 'CodeMC'
+        url = 'https://repo.codemc.org/repository/maven-public/'
     }
 }
 
 dependencies {
-    compile 'org.zendal:customitems:1.0'
+    compileOnly 'org.zendal.customitems:CustomItems:1.0.3' //current version
 }
 ```
 
