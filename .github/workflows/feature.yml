@@ -21,6 +21,3 @@ jobs:
       uses: gradle/gradle-build-action@v2.3.3
       with:
         arguments: test
-    - name: grep version
-      run: |
-        ./gradlew properties | grep "version:" | awk '{print $2}'
