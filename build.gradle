@@ -114,8 +114,3 @@ tasks.register("moveToServerFolder") {
         ant.move(file: buildDir.getAbsolutePath() + "/libs/" + project.name + "-" + version + ".jar", tofile: pathToServer + "/plugins/" + project.name + "-" + version + ".jar")
     }
 }
-
-if (System.getenv("GRADLE_PROJECT_MAVEN_USERNAME") != null) {
-    build.finalizedBy(publish)
-}
-
