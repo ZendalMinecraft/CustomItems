@@ -22,7 +22,7 @@ jobs:
     - name: Build and publish
       uses: gradle/gradle-build-action@v2.3.3
       with:
-        arguments: test build
+        arguments: clean test build
     - name: Calculate version
       id: version
       run: |
