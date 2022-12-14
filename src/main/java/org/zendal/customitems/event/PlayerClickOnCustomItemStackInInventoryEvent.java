@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import org.zendal.customitems.item.AbstractCustomItemStack;
 
 /**
- * Little bit modified InventoryClickEvent, invoke when player clicked on inventory and this clicked item is CustomItemStack.
+ * A little modified InventoryClickEvent, invoke when player clicked on inventory and this clicked item is CustomItemStack.
  * Warning! working okay only for survival or adventure mode, In creative mode u got dupe bug in your inventory
  */
 public final class PlayerClickOnCustomItemStackInInventoryEvent extends InventoryClickEvent implements Cancellable {
